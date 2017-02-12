@@ -200,7 +200,7 @@ let styles = `
                <a class="close"
                   style="margin-left: 5px; padding: 0;"
                   (click)="removeClick(a, $event)">&times;</a>
-               <span [innerHtml]="sanitize(a.text)"></span>
+               <span [innerHtml]="sanitize(a.label)"></span>
            </span>
         </span>
     </span>
@@ -257,6 +257,7 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
   @Input() public placeholder:string = '';
   @Input() public idField:string = 'id';
   @Input() public textField:string = 'text';
+  @Input() public labelField:string = 'label';
   @Input() public childrenField:string = 'children';
   @Input() public multiple:boolean = false;
 
@@ -270,7 +271,7 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
           return item;
         }
       });
-      this.itemObjects = this._items.map((item:any) => (typeof item === 'string' ? new SelectItem(item) : new SelectItem({id: item[this.idField], text: item[this.textField], children: item[this.childrenField]})));
+      this.itemObjects = this._items.map((item:any) => (typeof item === 'string' ? new SelectItem(item) : new SelectItem({id: item[this.idField], text: item[this.textField],label: item[this.labelField] || item[this.textField], children: item[this.childrenField]})));
     }
   }
 
